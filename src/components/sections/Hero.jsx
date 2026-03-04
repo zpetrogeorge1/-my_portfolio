@@ -1,8 +1,8 @@
 export default function Hero({ fg, muted }) {
   const lines = [
-    ["⚀", "Full-Stack Developer & AI Engineer — Building intelligent web experiences."],
-    ["⚁", "Specializing in Next.js, TypeScript, and LangChain for AI-powered apps."],
-    ["⚂", "Creating next-gen digital products that think, adapt, and deliver impact."],
+    ["⚀", "Electrical Engineer looking to contribute to an innovative team"],
+    ["⚁", "Experience in RF/microwave systems, robotics, and system engineering"],
+    ["⚂", "Thrives in environments built on communication and collaboration"],
   ];
 
   return (
@@ -16,7 +16,7 @@ export default function Hero({ fg, muted }) {
           animation: "fadeUp .65s cubic-bezier(.4,0,.2,1) both",
         }}
       >
-        Rishav Agarwal
+        Zachary Petrogeorge
       </h1>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
