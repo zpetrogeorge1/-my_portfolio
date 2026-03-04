@@ -1,0 +1,61 @@
+export const projects = [
+  {
+    title: "ClipCraft AI",
+    description:
+      "An AI-powered video generator — enter a prompt and get a polished promo video. Claude AI writes the copy and Remotion renders the motion graphics, all automated end-to-end.",
+    tech: ["Claude AI", "Remotion", "Next.js", "TypeScript"],
+    emoji: "🎬",
+  },
+  {
+    title: "Nova AI",
+    description:
+      "Nova AI is an advanced multi-modal assistant that can read webpages, research live information, run Python code, and interact through natural voice conversations.",
+    tech: ["LangChain", "Python", "Next.js", "OpenAI"],
+    emoji: "✦",
+  },
+];
+
+export const experiences = [
+  {
+    company: "NAWKOUT",
+    url: "https://nawkout.com",
+    role: "Full Stack & AI Developer",
+    period: "Dec 2025 — Present",
+    location: "Houston, USA · Remote",
+    bullets: [
+      "Built an end-to-end AI-powered CEO CRM Tool, handling the entire development lifecycle from concept to production",
+      "Took the product from 0 to 100 in under 1 month, delivering a fully functional platform at rapid pace",
+      "Primarily worked with Python and TypeScript to build robust backend services and dynamic frontends",
+      "Automated every workflow end-to-end, streamlining operations and eliminating manual processes",
+      "Managed the full stack independently — from AI integrations and backend APIs to frontend UI and deployment",
+    ],
+  },
+  {
+    company: "AskGuru.ai",
+    url: "https://askguru-six.vercel.app/",
+    role: "AI & UI/UX Developer",
+    period: "Oct 2025 — Nov 2025",
+    location: "India · Remote",
+    bullets: [
+      "Contributed to building the intelligent AI chatbot architecture for AskGuru's platform",
+      "Led the design and implementation of the complete UI/UX for the entire web interface",
+      "Worked across both AI workflow and front-end systems ensuring a cohesive user experience",
+      "Collaborated on refining conversational logic, responsiveness, and brand consistency",
+    ],
+  },
+];
+
+export const allPRs = [
+  { repo: "vercel/next.js",        title: "Fix edge runtime hydration mismatch",           status: "merged", num: "#71234" },
+  { repo: "langchain-ai/langchain", title: "Add streaming support for custom LLM chains",   status: "merged", num: "#18902" },
+  { repo: "shadcn-ui/ui",           title: "Add loading skeleton to data table component",  status: "merged", num: "#2901"  },
+  { repo: "remotion-dev/remotion",  title: "Improve type inference for composition props",  status: "open",   num: "#3741"  },
+  { repo: "vercel/swr",             title: "Add deduplication for parallel key mutations",  status: "open",   num: "#2410"  },
+  { repo: "trpc/trpc",              title: "Fix mutation cache invalidation race condition", status: "closed", num: "#5582"  },
+];
+
+export const skills = [
+  "Next.js", "React", "TypeScript", "Python", "LangChain",
+  "Node.js", "Tailwind CSS", "PostgreSQL", "Docker", "Claude AI",
+  "Remotion", "Vercel", "Prisma", "Redis", "tRPC", "Framer Motion",
+];
