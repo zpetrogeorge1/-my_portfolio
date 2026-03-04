@@ -1,17 +1,24 @@
 export const projects = [
   {
-    title: "ClipCraft AI",
+    title: "Senior Design Capstone",
     description:
-      "An AI-powered video generator — enter a prompt and get a polished promo video. Claude AI writes the copy and Remotion renders the motion graphics, all automated end-to-end.",
-    tech: ["Claude AI", "Remotion", "Next.js", "TypeScript"],
-    emoji: "🎬",
+      "Designed and delivered an award-winning computer vision inspection system using Raspberry Pis, Python, and machine learning to automatically time manual operations on Keytronic manufacturing assembly lines.",
+    tech: ["Raspberry Pi", "Machine Learning", "Python", "Computer Vision"],
+    emoji: "📷",
   },
   {
-    title: "Nova AI",
+    title: "MATLAB Digital Receiver Design",
     description:
-      "Nova AI is an advanced multi-modal assistant that can read webpages, research live information, run Python code, and interact through natural voice conversations.",
-    tech: ["LangChain", "Python", "Next.js", "OpenAI"],
-    emoji: "✦",
+      "Simulated a digital receiver with a matched filter in MATLAB, modeling an AWGN channel and analyzing symbol error rate performance against signal-to-noise ratio.",
+    tech: ["MATLAB", "Filter design", "Communication Systems"],
+    emoji: "📶",
+  },
+    {
+    title: "RF Amplifier Design, Fabrication, and Testing",
+    description:
+      "Designed, built, and tested a 1 GHz RF amplifier using a HEMT FET, achieving a 0.6 dB noise figure through S-parameter analysis, stability testing, and Smith Chart optimization.",
+    tech: ["MATLAB", "Amplifier Design", "RF Engineering", "Smith Charts", "Soldering", "Hardware Testing"],
+    emoji: "📡",
   },
 ];
 
