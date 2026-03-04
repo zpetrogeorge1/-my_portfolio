@@ -47,7 +47,7 @@ export default function Nav({ dark, setDark }) {
             letterSpacing: "-0.01em",
           }}
         >
-          Rishav
+          Zach Petrogerge
         </span>
       </a>
 
