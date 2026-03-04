@@ -5,6 +5,17 @@ export const projects = [
       "Designed and delivered an award-winning computer vision inspection system using Raspberry Pis, Python, and machine learning to automatically time manual operations on Keytronic manufacturing assembly lines.",
     tech: ["Raspberry Pi", "Machine Learning", "Python", "Computer Vision"],
     emoji: "📷",
+    period: "August 2024 – May 2025",
+    sponsor: "Keytronic — Spokane, WA",
+    longDescription:
+      "Worked with a team of four to design and implement a vision inspection system for manufacturing assembly lines. The system used multiple Raspberry Pis networked together, a MediaPipe hand-tracking model, and custom machine learning logic to automatically detect and time manual operations performed by workers on Keytronic's assembly lines.",
+    highlights: [
+      "Recognized as best electrical engineering project at the Senior Design Expo",
+      "Delivered a fully working prototype to Keytronic by end of April 2025",
+      "Used MediaPipe hand tracking to detect motion zones and measure cycle times",
+      "Networked multiple Raspberry Pis over LAN for distributed camera coverage",
+    ],
+    skills: ["Python", "Linux", "Machine Learning", "Computer Vision", "Networking", "Team Collaboration", "Technical Writing"],
   },
   {
     title: "MATLAB Digital Receiver Design",
@@ -12,13 +23,36 @@ export const projects = [
       "Simulated a digital receiver with a matched filter in MATLAB, modeling an AWGN channel and analyzing symbol error rate performance against signal-to-noise ratio.",
     tech: ["MATLAB", "Filter design", "Communication Systems"],
     emoji: "📶",
+    period: "November 2024 – December 2024",
+    sponsor: "Gonzaga University — Wireless Systems Course",
+    longDescription:
+      "Designed and simulated a complete digital receiver pipeline in MATLAB. The signal channel was modeled with additive white Gaussian noise (AWGN), and a matched filter was implemented to optimize signal detection. Symbol error rate (SER) was plotted against the energy-per-symbol to noise ratio (Ep/N₀) and compared to the theoretical curve.",
+    highlights: [
+      "Implemented matched filter to maximize SNR at the sampling instant",
+      "Modeled realistic AWGN channel conditions",
+      "Plotted actual vs. theoretical SER across 0–10 dB Ep/N₀ range",
+      "Results closely matched theoretical predictions for binary polar pulse signals",
+    ],
+    skills: ["Signal Processing", "MATLAB", "Digital Communications", "Data Analysis", "Simulation", "Probability & Statistics"],
   },
-    {
+  {
     title: "RF Amplifier Design, Fabrication, and Testing",
     description:
       "Designed, built, and tested a 1 GHz RF amplifier using a HEMT FET, achieving a 0.6 dB noise figure through S-parameter analysis, stability testing, and Smith Chart optimization.",
-    tech: ["MATLAB", "Amplifier Design", "RF Engineering", "Smith Charts", "Soldering", "Hardware Testing"],
+    tech: ["Amplifier Design", "RF Engineering", "Smith Charts", "Soldering", "Hardware Testing"],
     emoji: "📡",
+    period: "March 2025 – May 2025",
+    sponsor: "Gonzaga University — Wireless Systems Course",
+    longDescription:
+      "Designed, fabricated, and tested a 1 GHz low-noise RF amplifier using the NEC 3210-S01 HEMT FET. The design process involved S-parameter analysis, K-Δ stability testing, and noise/gain circle analysis on a Smith Chart to optimize input/output reflection coefficients. The amplifier was then physically built and verified using a spectrum analyzer and signal generator.",
+    highlights: [
+      "Achieved a noise figure of 0.6 dB at 1 GHz",
+      "Optimized for maximum unilateral transducer gain",
+      "Performed K-Δ stability analysis to ensure unconditional stability",
+      "Used Smith Chart noise and gain circles to select optimal reflection coefficients",
+      "Verified performance with spectrum analyzer and signal generator",
+    ],
+    skills: ["Circuit Design", "RF Engineering", "Hardware Prototyping", "Testing & Measurement", "Soldering", "Smith Chart Analysis"],
   },
 ];
 

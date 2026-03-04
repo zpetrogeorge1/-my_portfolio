@@ -66,7 +66,7 @@ export function Footer({ dark }) {
         rel="noreferrer"
         style={{ color: D ? "#555" : "#aaa", textDecoration: "underline" }}
       >
-        Rishav Agarwal
+        Zachary Petrogeorge
       </a>
     </footer>
   );
