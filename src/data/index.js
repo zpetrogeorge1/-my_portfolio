@@ -9,6 +9,7 @@ export const projects = [
     sponsor: "Keytronic — Spokane, WA",
     longDescription:
       "Worked with a team of four to design and implement a vision inspection system for manufacturing assembly lines. The system used multiple Raspberry Pis networked together, a MediaPipe hand-tracking model, and custom machine learning logic to automatically detect and time manual operations performed by workers on Keytronic's assembly lines.",
+    photos: ["hand_tracking_jpg.png", "/setup.jpg"],
     highlights: [
       "Recognized as best electrical engineering project at the Senior Design Expo",
       "Delivered a fully working prototype to Keytronic by end of April 2025",
