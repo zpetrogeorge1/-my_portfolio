@@ -23,10 +23,16 @@ function SectionLabel({ children, dark }) {
 function ProjectModal({ p, dark, fg, muted, dim, onClose }) {
   const D = dark;
   const [imgError, setImgError] = useState({});
+  const [lightbox, setLightbox] = useState(null); // index of enlarged photo
   const photos = p.photos || [];
 
   useEffect(() => {
-    const handler = (e) => { if (e.key === "Escape") onClose(); };
+    const handler = (e) => {
+      if (e.key === "Escape") {
+        if (lightbox !== null) setLightbox(null);
+        else onClose();
+      }
+    };
     window.addEventListener("keydown", handler);
     document.body.style.overflow = "hidden";
     return () => {
@@ -208,12 +214,15 @@ function ProjectModal({ p, dark, fg, muted, dim, onClose }) {
                 {photos.map((src, i) => (
                   <div
                     key={i}
+                    onClick={() => !imgError[i] && setLightbox(i)}
                     style={{
                       borderRadius: 10,
                       overflow: "hidden",
                       background: D ? "#111" : "#f7f7f7",
                       border: D ? "1px solid #222" : "1px solid #e4e4e4",
                       aspectRatio: photos.length === 1 ? "16/9" : "4/3",
+                      cursor: imgError[i] ? "default" : "zoom-in",
+                      position: "relative",
                     }}
                   >
                     {!imgError[i] ? (
@@ -221,7 +230,9 @@ function ProjectModal({ p, dark, fg, muted, dim, onClose }) {
                         src={src}
                         alt={`${p.title} photo ${i + 1}`}
                         onError={() => setImgError(e => ({ ...e, [i]: true }))}
-                        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform .25s ease", }}
+                        onMouseEnter={e => e.currentTarget.style.transform = "scale(1.04)"}
+                        onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
                       />
                     ) : (
                       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
@@ -306,6 +317,82 @@ function ProjectModal({ p, dark, fg, muted, dim, onClose }) {
           )}
         </div>
       </div>
+
+      {/* ── Lightbox ── */}
+      {lightbox !== null && createPortal(
+        <div
+          onClick={() => setLightbox(null)}
+          style={{
+            position: "fixed", inset: 0, zIndex: 1100,
+            background: "rgba(0,0,0,0.92)",
+            backdropFilter: "blur(10px)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            padding: 24,
+            animation: "modalFadeIn .15s ease both",
+            cursor: "zoom-out",
+          }}
+        >
+          {/* Prev / Next arrows */}
+          {photos.length > 1 && (
+            <>
+              <button
+                onClick={e => { e.stopPropagation(); setLightbox(i => (i - 1 + photos.length) % photos.length); }}
+                style={{
+                  position: "absolute", left: 20, top: "50%", transform: "translateY(-50%)",
+                  background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.14)",
+                  borderRadius: 10, width: 42, height: 42, cursor: "pointer",
+                  color: "#ccc", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center",
+                  transition: "background .15s",
+                }}
+                onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.16)"}
+                onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.08)"}
+              >
+                ‹
+              </button>
+              <button
+                onClick={e => { e.stopPropagation(); setLightbox(i => (i + 1) % photos.length); }}
+                style={{
+                  position: "absolute", right: 20, top: "50%", transform: "translateY(-50%)",
+                  background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.14)",
+                  borderRadius: 10, width: 42, height: 42, cursor: "pointer",
+                  color: "#ccc", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center",
+                  transition: "background .15s",
+                }}
+                onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.16)"}
+                onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.08)"}
+              >
+                ›
+              </button>
+            </>
+          )}
+
+          {/* Image */}
+          <img
+            src={photos[lightbox]}
+            alt={`${p.title} photo ${lightbox + 1}`}
+            onClick={e => e.stopPropagation()}
+            style={{
+              maxWidth: "90vw", maxHeight: "88vh",
+              borderRadius: 12,
+              boxShadow: "0 24px 80px rgba(0,0,0,0.7)",
+              objectFit: "contain",
+              animation: "modalSlideUp .2s cubic-bezier(.4,0,.2,1) both",
+              cursor: "default",
+            }}
+          />
+
+          {/* Close hint */}
+          <p style={{
+            position: "absolute", bottom: 18,
+            fontSize: 11, fontFamily: "'DM Mono',monospace",
+            color: "rgba(255,255,255,0.3)",
+            pointerEvents: "none",
+          }}>
+            click outside or press Esc to close
+          </p>
+        </div>,
+        document.body
+      )}
     </div>,
     document.body
   );
