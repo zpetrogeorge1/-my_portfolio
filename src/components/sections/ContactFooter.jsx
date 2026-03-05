@@ -25,7 +25,7 @@ export function Contact({ dark, fg, muted }) {
             Hi there — I'm currently open to contribute to develop your dream to real world existence!
           </p>
           <a
-            href="https://cal.com/rishab-agarwal/30min"
+            href="https://calendar.app.google/kZU5QPwgGMV2WzSA9"
             target="_blank"
             rel="noreferrer"
             style={{

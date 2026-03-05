@@ -53,7 +53,7 @@ export default function Nav({ dark, setDark }) {
 
       {/* Links */}
       <div style={{ display: "flex", alignItems: "center", gap: 2 }}>
-        {[["Projects", "#projects"], ["Contact", "https://cal.com/rishab-agarwal/30min"]].map(([label, href]) => (
+        {[["Projects", "#projects"], ["Contact", "https://calendar.app.google/kZU5QPwgGMV2WzSA9"]].map(([label, href]) => (
           <a
             key={label}
             href={href}
