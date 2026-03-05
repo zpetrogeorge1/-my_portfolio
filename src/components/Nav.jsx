@@ -44,7 +44,7 @@ export default function Nav({ dark, setDark }) {
           }}
         >
             <img
-             src="profile.jpg"
+             src="/profile.jpg"
              alt="Zach Petrogeorge"
              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
              />
