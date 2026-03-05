@@ -28,6 +28,7 @@ export const projects = [
     sponsor: "Gonzaga University — Wireless Systems Course",
     longDescription:
       "Designed and simulated a complete digital receiver pipeline in MATLAB. The signal channel was modeled with additive white Gaussian noise (AWGN), and a matched filter was implemented to optimize signal detection. Symbol error rate (SER) was plotted against the energy-per-symbol to noise ratio (Ep/N₀) and compared to the theoretical curve.",
+    photos: ["graph.jgp"],
     highlights: [
       "Implemented matched filter to maximize SNR at the sampling instant",
       "Modeled realistic AWGN channel conditions",
@@ -46,6 +47,7 @@ export const projects = [
     sponsor: "Gonzaga University — Wireless Systems Course",
     longDescription:
       "Designed, fabricated, and tested a 1 GHz low-noise RF amplifier using the NEC 3210-S01 HEMT FET. The design process involved S-parameter analysis, K-Δ stability testing, and noise/gain circle analysis on a Smith Chart to optimize input/output reflection coefficients. The amplifier was then physically built and verified using a spectrum analyzer and signal generator.",
+    photos: ["amp.jpg"],
     highlights: [
       "Achieved a noise figure of 0.6 dB at 1 GHz",
       "Optimized for maximum unilateral transducer gain",

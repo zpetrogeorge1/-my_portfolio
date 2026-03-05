@@ -196,33 +196,27 @@ function ProjectModal({ p, dark, fg, muted, dim, onClose }) {
           {/* ── Photo Gallery ── */}
           <div>
             <SectionLabel dark={D}>Photos</SectionLabel>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: 10,
-                marginTop: 10,
-              }}
-            >
-              {/* Render real photos if provided, else placeholder slots */}
-              {[0, 1].map(i => {
-                const src = photos[i];
-                return (
+            {photos.length > 0 ? (
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: photos.length === 1 ? "1fr" : "1fr 1fr",
+                  gap: 10,
+                  marginTop: 10,
+                }}
+              >
+                {photos.map((src, i) => (
                   <div
                     key={i}
                     style={{
                       borderRadius: 10,
                       overflow: "hidden",
                       background: D ? "#111" : "#f7f7f7",
-                      border: src
-                        ? (D ? "1px solid #222" : "1px solid #e4e4e4")
-                        : (D ? "1.5px dashed #252525" : "1.5px dashed #ddd"),
-                      aspectRatio: "4/3",
-                      display: "flex", flexDirection: "column",
-                      alignItems: "center", justifyContent: "center",
+                      border: D ? "1px solid #222" : "1px solid #e4e4e4",
+                      aspectRatio: photos.length === 1 ? "16/9" : "4/3",
                     }}
                   >
-                    {src && !imgError[i] ? (
+                    {!imgError[i] ? (
                       <img
                         src={src}
                         alt={`${p.title} photo ${i + 1}`}
@@ -230,29 +224,38 @@ function ProjectModal({ p, dark, fg, muted, dim, onClose }) {
                         style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                       />
                     ) : (
-                      <>
+                      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
                         <span style={{ fontSize: 26, opacity: 0.2 }}>🖼</span>
-                        <span style={{
-                          fontSize: 11, marginTop: 6,
-                          fontFamily: "'DM Mono',monospace",
-                          color: D ? "#363636" : "#ccc",
-                        }}>
-                          {src ? "Failed to load" : `Photo ${i + 1}`}
-                        </span>
-                      </>
+                        <span style={{ fontSize: 11, marginTop: 6, fontFamily: "'DM Mono',monospace", color: D ? "#363636" : "#ccc" }}>Failed to load</span>
+                      </div>
                     )}
                   </div>
-                );
-              })}
-            </div>
-            {photos.length === 0 && (
-              <p style={{
-                fontSize: 11, marginTop: 8,
-                fontFamily: "'DM Mono',monospace",
-                color: D ? "#363636" : "#c0c0c0",
-              }}>
-                Add a <code>photos: [url1, url2]</code> field to this project in index.js
-              </p>
+                ))}
+              </div>
+            ) : (
+              <>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 10 }}>
+                  {[0, 1].map(i => (
+                    <div
+                      key={i}
+                      style={{
+                        borderRadius: 10,
+                        background: D ? "#111" : "#f7f7f7",
+                        border: D ? "1.5px dashed #252525" : "1.5px dashed #ddd",
+                        aspectRatio: "4/3",
+                        display: "flex", flexDirection: "column",
+                        alignItems: "center", justifyContent: "center", gap: 6,
+                      }}
+                    >
+                      <span style={{ fontSize: 26, opacity: 0.2 }}>🖼</span>
+                      <span style={{ fontSize: 11, fontFamily: "'DM Mono',monospace", color: D ? "#363636" : "#ccc" }}>Photo {i + 1}</span>
+                    </div>
+                  ))}
+                </div>
+                <p style={{ fontSize: 11, marginTop: 8, fontFamily: "'DM Mono',monospace", color: D ? "#363636" : "#c0c0c0" }}>
+                  Add a <code>photos: [url1, url2]</code> field to this project in index.js
+                </p>
+              </>
             )}
           </div>
 
