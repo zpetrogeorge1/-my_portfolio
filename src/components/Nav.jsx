@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import myPhoto from "C:\Users\zptaz\OneDrive\Desktop\portfolio\portfolio-site\src\assets\profile.JPG";
-
+import myPhoto from "../assets/profile.jpg";
 export default function Nav({ dark, setDark }) {
   const [scrolled, setScrolled] = useState(false);
 
