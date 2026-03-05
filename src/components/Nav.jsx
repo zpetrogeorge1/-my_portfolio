@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import myPhoto from "C:\Users\zptaz\OneDrive\Desktop\portfolio\portfolio-site\src\assets\profile.JPG";
 
 export default function Nav({ dark, setDark }) {
   const [scrolled, setScrolled] = useState(false);
@@ -44,7 +45,7 @@ export default function Nav({ dark, setDark }) {
           }}
         >
             <img
-             src="/profile.jpg"
+             src={myPhoto}
              alt="Zach Petrogeorge"
              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
              />
