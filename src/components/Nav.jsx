@@ -4,72 +4,83 @@ export default function Nav({ dark, setDark }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 8);
-    window.addEventListener("scroll", fn);
+    const fn = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
   }, []);
+
+  const D = dark;
 
   return (
     <nav
       style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 200,
-        height: 52,
+        height: scrolled ? 52 : 72,
         display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "0 20px",
-        background: dark
-          ? scrolled ? "rgba(8,8,8,0.88)" : "transparent"
-          : scrolled ? "rgba(255,255,255,0.88)" : "transparent",
-        backdropFilter: scrolled ? "saturate(1.8) blur(14px)" : "none",
+        padding: scrolled ? "0 24px" : "0 32px",
+        background: scrolled
+          ? D ? "rgba(8,8,8,0.88)" : "rgba(255,255,255,0.88)"
+          : "transparent",
+        backdropFilter: scrolled ? "saturate(1.8) blur(16px)" : "none",
         borderBottom: scrolled
-          ? dark ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(0,0,0,0.07)"
+          ? D ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(0,0,0,0.07)"
           : "1px solid transparent",
-        transition: "background .3s, border-color .3s",
+        transition: "height .35s cubic-bezier(.4,0,.2,1), padding .35s cubic-bezier(.4,0,.2,1), background .3s, border-color .3s, backdrop-filter .3s",
       }}
     >
       {/* Logo */}
-      <a href="#" style={{ display: "flex", alignItems: "center", gap: 9, textDecoration: "none" }}>
+      <a href="#" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
         <div
           style={{
-            width: 26, height: 26, borderRadius: "50%",
-            background: dark ? "#222" : "#e8e8e8",
-            border: dark ? "1.5px solid #333" : "1.5px solid #ccc",
+            width: scrolled ? 28 : 36,
+            height: scrolled ? 28 : 36,
+            borderRadius: "50%",
+            background: D ? "#222" : "#e8e8e8",
+            border: D ? "1.5px solid #333" : "1.5px solid #ccc",
             display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: 13, overflow: "hidden", flexShrink: 0,
+            fontSize: scrolled ? 14 : 18,
+            overflow: "hidden", flexShrink: 0,
+            transition: "width .35s cubic-bezier(.4,0,.2,1), height .35s cubic-bezier(.4,0,.2,1), font-size .35s cubic-bezier(.4,0,.2,1)",
           }}
         >
           🧑‍💻
         </div>
         <span
           style={{
-            fontSize: 13.5, fontWeight: 500,
-            color: dark ? "#d8d8d8" : "#111",
+            fontSize: scrolled ? 13.5 : 16,
+            fontWeight: scrolled ? 500 : 600,
+            color: D ? "#d8d8d8" : "#111",
             fontFamily: "'Geist','DM Sans',sans-serif",
-            letterSpacing: "-0.01em",
+            letterSpacing: scrolled ? "-0.01em" : "-0.02em",
+            transition: "font-size .35s cubic-bezier(.4,0,.2,1), font-weight .35s, letter-spacing .35s",
           }}
         >
-          Zach Petrogerge
+          Zach Petrogeorge
         </span>
       </a>
 
       {/* Links */}
-      <div style={{ display: "flex", alignItems: "center", gap: 2 }}>
-        {[["Projects", "#projects"], ["Contact", "https://calendar.app.google/kZU5QPwgGMV2WzSA9"]].map(([label, href]) => (
+      <div style={{ display: "flex", alignItems: "center", gap: scrolled ? 2 : 6, transition: "gap .35s" }}>
+        {[["Projects", "#projects"], ["Contact", "https://cal.com/rishab-agarwal/30min"]].map(([label, href]) => (
           <a
             key={label}
             href={href}
             style={{
-              fontSize: 13, color: dark ? "#777" : "#666",
-              textDecoration: "none", padding: "4px 10px", borderRadius: 6,
+              fontSize: scrolled ? 13 : 14,
+              color: D ? "#777" : "#666",
+              textDecoration: "none",
+              padding: scrolled ? "4px 10px" : "6px 13px",
+              borderRadius: 7,
               fontFamily: "'Geist','DM Sans',sans-serif",
-              transition: "color .15s, background .15s",
+              transition: "color .15s, background .15s, font-size .35s, padding .35s",
             }}
             onMouseEnter={e => {
-              e.target.style.color      = dark ? "#e8e8e8" : "#111";
-              e.target.style.background = dark ? "#181818" : "#f3f3f3";
+              e.currentTarget.style.color      = D ? "#e8e8e8" : "#111";
+              e.currentTarget.style.background = D ? "#181818" : "#f3f3f3";
             }}
             onMouseLeave={e => {
-              e.target.style.color      = dark ? "#777" : "#666";
-              e.target.style.background = "transparent";
+              e.currentTarget.style.color      = D ? "#777" : "#666";
+              e.currentTarget.style.background = "transparent";
             }}
           >
             {label}
@@ -81,12 +92,15 @@ export default function Nav({ dark, setDark }) {
           title="Toggle theme"
           style={{
             background: "none", border: "none", cursor: "pointer",
-            color: dark ? "#555" : "#888", fontSize: 13,
-            padding: "4px 8px", borderRadius: 6,
-            lineHeight: 1, transition: "color .15s",
+            color: D ? "#555" : "#888",
+            fontSize: scrolled ? 13 : 15,
+            padding: scrolled ? "4px 8px" : "6px 10px",
+            borderRadius: 6,
+            lineHeight: 1,
+            transition: "color .15s, font-size .35s, padding .35s",
           }}
         >
-          {dark ? "☀" : "🌙"}
+          {D ? "☀" : "🌙"}
         </button>
       </div>
     </nav>
