@@ -1,15 +1,33 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 
+/* ── Section label helper ── */
+function SectionLabel({ children, dark }) {
+  return (
+    <p
+      style={{
+        fontSize: 10.5,
+        fontFamily: "'DM Mono',monospace",
+        color: dark ? "#555" : "#bbb",
+        textTransform: "uppercase",
+        letterSpacing: "0.1em",
+        fontWeight: 500,
+      }}
+    >
+      {children}
+    </p>
+  );
+}
+
 /* ── Modal Portal ── */
 function ProjectModal({ p, dark, fg, muted, dim, onClose }) {
   const D = dark;
+  const [imgError, setImgError] = useState({});
+  const photos = p.photos || [];
 
-  // Close on Escape key
   useEffect(() => {
     const handler = (e) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", handler);
-    // Prevent body scroll while modal open
     document.body.style.overflow = "hidden";
     return () => {
       window.removeEventListener("keydown", handler);
@@ -22,8 +40,8 @@ function ProjectModal({ p, dark, fg, muted, dim, onClose }) {
       onClick={onClose}
       style={{
         position: "fixed", inset: 0, zIndex: 1000,
-        background: D ? "rgba(0,0,0,0.75)" : "rgba(0,0,0,0.4)",
-        backdropFilter: "blur(6px)",
+        background: D ? "rgba(0,0,0,0.80)" : "rgba(0,0,0,0.45)",
+        backdropFilter: "blur(8px)",
         display: "flex", alignItems: "center", justifyContent: "center",
         padding: "24px",
         animation: "modalFadeIn .18s ease both",
@@ -35,62 +53,86 @@ function ProjectModal({ p, dark, fg, muted, dim, onClose }) {
           to   { opacity: 1; }
         }
         @keyframes modalSlideUp {
-          from { opacity: 0; transform: translateY(20px) scale(0.98); }
+          from { opacity: 0; transform: translateY(22px) scale(0.97); }
           to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .modal-scroll::-webkit-scrollbar { width: 4px; }
+        .modal-scroll::-webkit-scrollbar-thumb {
+          background: ${D ? "#2a2a2a" : "#ddd"};
+          border-radius: 99px;
         }
       `}</style>
 
-      {/* Modal panel — stop propagation so clicking inside doesn't close */}
       <div
         onClick={(e) => e.stopPropagation()}
+        className="modal-scroll"
         style={{
-          width: "100%", maxWidth: 580,
-          maxHeight: "85vh",
+          width: "100%", maxWidth: 600,
+          maxHeight: "88vh",
           overflowY: "auto",
-          borderRadius: 16,
-          background: D ? "#0d0d0d" : "#fff",
-          border: D ? "1px solid #222" : "1px solid #e4e4e4",
+          borderRadius: 18,
+          background: D ? "#0c0c0c" : "#fff",
+          border: D ? "1px solid #252525" : "1px solid #e0e0e0",
           boxShadow: D
-            ? "0 24px 80px rgba(0,0,0,0.7)"
-            : "0 24px 80px rgba(0,0,0,0.12)",
-          animation: "modalSlideUp .22s cubic-bezier(.4,0,.2,1) both",
+            ? "0 32px 100px rgba(0,0,0,0.8)"
+            : "0 32px 100px rgba(0,0,0,0.14)",
+          animation: "modalSlideUp .24s cubic-bezier(.4,0,.2,1) both",
         }}
       >
-        {/* Header */}
+        {/* ── Header ── */}
         <div
           style={{
-            padding: "28px 28px 20px",
-            borderBottom: D ? "1px solid #181818" : "1px solid #f0f0f0",
-            display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12,
+            padding: "26px 26px 22px",
+            borderBottom: D ? "1px solid #1c1c1c" : "1px solid #efefef",
+            display: "flex", alignItems: "flex-start",
+            justifyContent: "space-between", gap: 14,
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+          <div style={{ display: "flex", alignItems: "flex-start", gap: 16 }}>
+            {/* Emoji badge */}
             <div
               style={{
-                width: 52, height: 52, borderRadius: 12, flexShrink: 0,
-                background: D ? "#141414" : "#f5f5f5",
-                border: D ? "1px solid #222" : "1px solid #e8e8e8",
+                width: 54, height: 54, borderRadius: 13, flexShrink: 0,
+                background: D ? "#161616" : "#f4f4f4",
+                border: D ? "1px solid #282828" : "1px solid #e4e4e4",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 26,
+                fontSize: 28,
               }}
             >
               {p.emoji}
             </div>
-            <div>
+
+            <div style={{ paddingTop: 2 }}>
+              {/* Title — high contrast */}
               <h2
                 style={{
-                  fontSize: 17, fontWeight: 600,
+                  fontSize: 18, fontWeight: 700,
                   fontFamily: "'Geist','DM Sans',sans-serif",
-                  letterSpacing: "-0.02em", color: fg,
-                  marginBottom: 4,
+                  letterSpacing: "-0.025em",
+                  color: D ? "#f2f2f2" : "#080808",
+                  marginBottom: 8, lineHeight: 1.2,
                 }}
               >
                 {p.title}
               </h2>
+
+              {/* Date — readable pill */}
               {p.period && (
-                <p style={{ fontSize: 12, color: dim, fontFamily: "'DM Mono',monospace" }}>
+                <span
+                  style={{
+                    display: "inline-block",
+                    fontSize: 11.5,
+                    fontFamily: "'DM Mono',monospace",
+                    color: D ? "#c8c8c8" : "#2a2a2a",
+                    background: D ? "#1e1e1e" : "#efefef",
+                    border: D ? "1px solid #303030" : "1px solid #d8d8d8",
+                    borderRadius: 6,
+                    padding: "3px 10px",
+                    letterSpacing: "0.01em",
+                  }}
+                >
                   {p.period}
-                </p>
+                </span>
               )}
             </div>
           </div>
@@ -99,46 +141,41 @@ function ProjectModal({ p, dark, fg, muted, dim, onClose }) {
           <button
             onClick={onClose}
             style={{
-              background: D ? "#181818" : "#f5f5f5",
-              border: D ? "1px solid #242424" : "1px solid #e8e8e8",
+              background: D ? "#181818" : "#f4f4f4",
+              border: D ? "1px solid #282828" : "1px solid #e4e4e4",
               borderRadius: 8,
-              width: 32, height: 32,
+              width: 34, height: 34,
               cursor: "pointer", flexShrink: 0,
               display: "flex", alignItems: "center", justifyContent: "center",
-              color: D ? "#666" : "#999",
-              fontSize: 16, lineHeight: 1,
+              color: D ? "#777" : "#999",
+              fontSize: 15, lineHeight: 1,
               transition: "color .15s, background .15s",
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.color = D ? "#ccc" : "#333";
-              e.currentTarget.style.background = D ? "#222" : "#eee";
+              e.currentTarget.style.color = D ? "#e8e8e8" : "#111";
+              e.currentTarget.style.background = D ? "#252525" : "#e8e8e8";
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.color = D ? "#666" : "#999";
-              e.currentTarget.style.background = D ? "#181818" : "#f5f5f5";
+              e.currentTarget.style.color = D ? "#777" : "#999";
+              e.currentTarget.style.background = D ? "#181818" : "#f4f4f4";
             }}
           >
             ✕
           </button>
         </div>
 
-        {/* Body */}
-        <div style={{ padding: "24px 28px 28px", display: "flex", flexDirection: "column", gap: 22 }}>
+        {/* ── Body ── */}
+        <div style={{ padding: "24px 26px 28px", display: "flex", flexDirection: "column", gap: 24 }}>
 
-          {/* Sponsor / context */}
+          {/* Sponsor */}
           {p.sponsor && (
             <div>
-              <p
-                style={{
-                  fontSize: 11.5, color: dim,
-                  fontFamily: "'DM Mono',monospace",
-                  marginBottom: 2,
-                  textTransform: "uppercase", letterSpacing: "0.05em",
-                }}
-              >
-                Sponsor / Context
-              </p>
-              <p style={{ fontSize: 13.5, color: muted, fontFamily: "'Geist','DM Sans',sans-serif" }}>
+              <SectionLabel dark={D}>Sponsor / Context</SectionLabel>
+              <p style={{
+                fontSize: 14, marginTop: 6,
+                color: D ? "#c8c8c8" : "#1e1e1e",
+                fontFamily: "'Geist','DM Sans',sans-serif",
+              }}>
                 {p.sponsor}
               </p>
             </div>
@@ -146,59 +183,95 @@ function ProjectModal({ p, dark, fg, muted, dim, onClose }) {
 
           {/* Overview */}
           <div>
-            <p
-              style={{
-                fontSize: 11.5, color: dim,
-                fontFamily: "'DM Mono',monospace",
-                marginBottom: 8,
-                textTransform: "uppercase", letterSpacing: "0.05em",
-              }}
-            >
-              Overview
-            </p>
-            <p
-              style={{
-                fontSize: 14, color: muted,
-                fontFamily: "'Geist','DM Sans',sans-serif",
-                lineHeight: 1.7,
-              }}
-            >
+            <SectionLabel dark={D}>Overview</SectionLabel>
+            <p style={{
+              fontSize: 14, lineHeight: 1.75, marginTop: 6,
+              color: D ? "#c0c0c0" : "#222",
+              fontFamily: "'Geist','DM Sans',sans-serif",
+            }}>
               {p.longDescription || p.description}
             </p>
+          </div>
+
+          {/* ── Photo Gallery ── */}
+          <div>
+            <SectionLabel dark={D}>Photos</SectionLabel>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: 10,
+                marginTop: 10,
+              }}
+            >
+              {/* Render real photos if provided, else placeholder slots */}
+              {[0, 1].map(i => {
+                const src = photos[i];
+                return (
+                  <div
+                    key={i}
+                    style={{
+                      borderRadius: 10,
+                      overflow: "hidden",
+                      background: D ? "#111" : "#f7f7f7",
+                      border: src
+                        ? (D ? "1px solid #222" : "1px solid #e4e4e4")
+                        : (D ? "1.5px dashed #252525" : "1.5px dashed #ddd"),
+                      aspectRatio: "4/3",
+                      display: "flex", flexDirection: "column",
+                      alignItems: "center", justifyContent: "center",
+                    }}
+                  >
+                    {src && !imgError[i] ? (
+                      <img
+                        src={src}
+                        alt={`${p.title} photo ${i + 1}`}
+                        onError={() => setImgError(e => ({ ...e, [i]: true }))}
+                        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                      />
+                    ) : (
+                      <>
+                        <span style={{ fontSize: 26, opacity: 0.2 }}>🖼</span>
+                        <span style={{
+                          fontSize: 11, marginTop: 6,
+                          fontFamily: "'DM Mono',monospace",
+                          color: D ? "#363636" : "#ccc",
+                        }}>
+                          {src ? "Failed to load" : `Photo ${i + 1}`}
+                        </span>
+                      </>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            {photos.length === 0 && (
+              <p style={{
+                fontSize: 11, marginTop: 8,
+                fontFamily: "'DM Mono',monospace",
+                color: D ? "#363636" : "#c0c0c0",
+              }}>
+                Add a <code>photos: [url1, url2]</code> field to this project in index.js
+              </p>
+            )}
           </div>
 
           {/* Highlights */}
           {p.highlights && p.highlights.length > 0 && (
             <div>
-              <p
-                style={{
-                  fontSize: 11.5, color: dim,
-                  fontFamily: "'DM Mono',monospace",
-                  marginBottom: 10,
-                  textTransform: "uppercase", letterSpacing: "0.05em",
-                }}
-              >
-                Key Highlights
-              </p>
-              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+              <SectionLabel dark={D}>Key Highlights</SectionLabel>
+              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8, marginTop: 8 }}>
                 {p.highlights.map((h, i) => (
                   <li
                     key={i}
                     style={{
-                      fontSize: 13.5, color: muted,
+                      fontSize: 13.5, lineHeight: 1.65,
+                      color: D ? "#c0c0c0" : "#222",
                       fontFamily: "'Geist','DM Sans',sans-serif",
-                      lineHeight: 1.6,
                       paddingLeft: 18, position: "relative",
                     }}
                   >
-                    <span
-                      style={{
-                        position: "absolute", left: 0,
-                        color: D ? "#444" : "#bbb",
-                      }}
-                    >
-                      •
-                    </span>
+                    <span style={{ position: "absolute", left: 0, color: D ? "#555" : "#bbb" }}>•</span>
                     {h}
                   </li>
                 ))}
@@ -209,25 +282,16 @@ function ProjectModal({ p, dark, fg, muted, dim, onClose }) {
           {/* Skills */}
           {(p.skills || p.tech) && (
             <div>
-              <p
-                style={{
-                  fontSize: 11.5, color: dim,
-                  fontFamily: "'DM Mono',monospace",
-                  marginBottom: 10,
-                  textTransform: "uppercase", letterSpacing: "0.05em",
-                }}
-              >
-                Skills & Technologies
-              </p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+              <SectionLabel dark={D}>Skills & Technologies</SectionLabel>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 7, marginTop: 10 }}>
                 {(p.skills || p.tech).map((t) => (
                   <span
                     key={t}
                     style={{
                       fontSize: 12, padding: "4px 11px", borderRadius: 99,
                       background: D ? "#181818" : "#f0f0f0",
-                      color: D ? "#888" : "#555",
-                      border: D ? "1px solid #242424" : "1px solid #e4e4e4",
+                      color: D ? "#aaa" : "#444",
+                      border: D ? "1px solid #272727" : "1px solid #e0e0e0",
                       fontFamily: "'DM Mono',monospace",
                     }}
                   >
@@ -284,7 +348,6 @@ export default function ProjectCard({ p, dark, fg, muted, dim }) {
           }}
         >
           {p.emoji}
-          {/* "View details" hint on hover */}
           <div
             style={{
               position: "absolute", bottom: 10, right: 12,
@@ -320,7 +383,6 @@ export default function ProjectCard({ p, dark, fg, muted, dim }) {
             {p.description}
           </p>
 
-          {/* Tech stack toggle */}
           <button
             onClick={(e) => { e.stopPropagation(); setTechOpen(o => !o); }}
             style={{
@@ -334,15 +396,7 @@ export default function ProjectCard({ p, dark, fg, muted, dim }) {
             onMouseLeave={e => e.currentTarget.style.color = D ? "#444" : "#bbb"}
           >
             Tech Stack{" "}
-            <span
-              style={{
-                fontSize: 9, display: "inline-block",
-                transition: "transform .2s",
-                transform: techOpen ? "rotate(180deg)" : "rotate(0deg)",
-              }}
-            >
-              ▼
-            </span>
+            <span style={{ fontSize: 9, display: "inline-block", transition: "transform .2s", transform: techOpen ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
           </button>
 
           {techOpen && (
@@ -366,7 +420,6 @@ export default function ProjectCard({ p, dark, fg, muted, dim }) {
         </div>
       </div>
 
-      {/* Modal */}
       {modalOpen && (
         <ProjectModal
           p={p}
