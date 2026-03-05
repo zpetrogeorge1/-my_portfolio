@@ -5,7 +5,6 @@ import Nav         from "./components/Nav";
 import Hero        from "./components/sections/Hero";
 import Projects    from "./components/sections/Projects";
 import Experiences from "./components/sections/Experiences";
-import ProofOfWork from "./components/sections/ProofOfWork";
 import Skills      from "./components/sections/Skills";
 import { Contact, Footer } from "./components/sections/ContactFooter";
 
@@ -65,7 +64,6 @@ export default function App() {
         <Hero        {...theme} />
         <Projects    {...theme} />
         <Experiences {...theme} />
-        <ProofOfWork {...theme} />
         <Skills      {...theme} />
         <Contact     {...theme} />
         <Footer      dark={D}  />
