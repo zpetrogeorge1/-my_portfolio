@@ -126,7 +126,7 @@ export const allPRs = [
 ];
 
 export const skills = [
-  "Next.js", "React", "TypeScript", "Python", "LangChain",
-  "Node.js", "Tailwind CSS", "PostgreSQL", "Docker", "Claude AI",
-  "Remotion", "Vercel", "Prisma", "Redis", "tRPC", "Framer Motion",
+  "Communication Systems", "Circuit Analysis", "MATLAB", "Python", "C/C++",
+  "Oscilloscopes", "Spice", "Claude AI", "RF Systems", "Robotics", "Altium",
+  "Spectrum Analyzers", "Signal Generators", "Multimeters"
 ];

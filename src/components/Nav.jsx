@@ -43,7 +43,11 @@ export default function Nav({ dark, setDark }) {
             transition: "width .35s cubic-bezier(.4,0,.2,1), height .35s cubic-bezier(.4,0,.2,1), font-size .35s cubic-bezier(.4,0,.2,1)",
           }}
         >
-          🧑‍💻
+            <img
+             src="profile.jpg"
+             alt="Zach Petrogeorge"
+             style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+             />
         </div>
         <span
           style={{
