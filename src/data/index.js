@@ -28,7 +28,7 @@ export const projects = [
     sponsor: "Gonzaga University — Wireless Systems Course",
     longDescription:
       "Designed and simulated a complete digital receiver pipeline in MATLAB. The signal channel was modeled with additive white Gaussian noise (AWGN), and a matched filter was implemented to optimize signal detection. Symbol error rate (SER) was plotted against the energy-per-symbol to noise ratio (Ep/N₀) and compared to the theoretical curve.",
-    photos: ["graph.jgp"],
+    photos: ["graph.jpg"],
     highlights: [
       "Implemented matched filter to maximize SNR at the sampling instant",
       "Modeled realistic AWGN channel conditions",
